@@ -21,6 +21,9 @@ export default function Navigation() {
             <LinkContainer to="/chats">
                 <Nav.Link>Chats</Nav.Link>
             </LinkContainer>
+            <LinkContainer to="/login">
+                <Nav.Link>Login</Nav.Link>
+            </LinkContainer>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
