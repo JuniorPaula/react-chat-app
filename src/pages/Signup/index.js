@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { useSignupUserMutation } from '../../services/appApi';
+import { Link } from 'react-router-dom';
 import BotImage from '../../assets/bot.png';
 import './signup.css';
 
@@ -8,10 +9,10 @@ export default function Signup() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [image, setImage] = useState(null);
     const [uploadingImage, setUploadingImage] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
+    const [signupUser, { isLoading, error }] = useSignupUserMutation()
     
     function validateImage(e) {
         const file = e.target.files[0];
@@ -48,7 +49,11 @@ export default function Signup() {
         e.preventDefault();
         if(!image) return alert('Por favor selecione uma foto');
         const url = await uploadImage(image);
-        console.log(url)
+        signupUser({name, email, password, picture: url }).then(({data}) => {
+            if(data) {
+                console.log(data)
+            }
+        })
     }
 
   return (
@@ -90,14 +95,6 @@ export default function Signup() {
                             placeholder="Digite sua senha"
                             onChange={e => setPassword(e.target.value)}
                             value={password} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicPasswordConfirmation">
-                        <Form.Label>Confirmar senha</Form.Label>
-                        <Form.Control 
-                            type="password" 
-                            placeholder="Confirme sua senha"
-                            onChange={e => setPasswordConfirmation(e.target.value)}
-                            value={passwordConfirmation} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Lembrar-me" />
