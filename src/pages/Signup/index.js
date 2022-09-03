@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useSignupUserMutation } from '../../services/appApi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BotImage from '../../assets/bot.png';
 import './signup.css';
 
 export default function Signup() {
+    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [image, setImage] = useState(null);
     const [uploadingImage, setUploadingImage] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
-    const [signupUser, { isLoading, error }] = useSignupUserMutation()
+    const [signupUser] = useSignupUserMutation()
     
     function validateImage(e) {
         const file = e.target.files[0];
@@ -51,7 +52,7 @@ export default function Signup() {
         const url = await uploadImage(image);
         signupUser({name, email, password, picture: url }).then(({data}) => {
             if(data) {
-                console.log(data)
+                navigate('/chats')
             }
         })
     }
