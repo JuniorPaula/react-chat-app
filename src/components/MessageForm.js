@@ -6,7 +6,7 @@ import './messageForm.css';
 
 export default function MessageForm() {
     const user = useSelector((state) => state.user);
-    const { socket, currentRooms, messages, setMessages, privateMembersMsg} = useContext(appContext)
+    const { socket, currentRooms, messages, setMessages} = useContext(appContext)
     const [message, setMessage] = useState('');
 
     function getFormatedDate() {
@@ -16,8 +16,7 @@ export default function MessageForm() {
 
         month = month.length > 1 ? month : '0' + month;
 
-        let day = date.getDay().toString();
-
+        let day = date.getDate().toString();
         day = day.length > 1 ? day : '0' + day;
 
         return `${day}/${month}/${year}`;
@@ -26,8 +25,8 @@ export default function MessageForm() {
     const todaydate = getFormatedDate();
 
     socket.off('room-messages').on('room-messages', (roomMessages) => {
-        console.log('room messages', roomMessages);
-        setMessage(roomMessages);
+        
+        setMessages(roomMessages);
     });
 
     function handleSubmit(e) {
@@ -44,6 +43,16 @@ export default function MessageForm() {
     <>
         <div className="message-output">
             {!user && <div className="alert alert-danger">Por favor faça seu login</div>}
+            {user && messages.map(({ _id: date, messagesBydate }, idx) => (
+                <div key={idx}>
+                    <p className="alert alert-info text-center message-date-indicator">{date}</p>
+                    {messagesBydate?.map(({ content, time, from: sender}, msgIdx) => (
+                        <div className="message" key={msgIdx}>
+                            <p>{content}</p>
+                        </div>
+                    ))}
+                </div>
+            ))}
         </div>
         <Form onSubmit={handleSubmit}>
             <Row>
@@ -53,7 +62,7 @@ export default function MessageForm() {
                             type="text"
                             disabled={!user}
                             value={message}
-                            onChange={e => setMessage(e.target.value)}
+                            onChange={(e) => setMessage(e.target.value)}
                             placeholder="Digite sua mensagem">                             
                         </Form.Control>
                     </Form.Group>
