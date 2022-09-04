@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLoginUserMutation } from '../../services/appApi';
+import { appContext } from '../../context/appContext';
 import './login.css';
 
 export default function Login() {
@@ -9,14 +10,16 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginUser] = useLoginUserMutation()
+    const { socket } = useContext(appContext)
 
     function handleLogin(e) {
         e.preventDefault();
         loginUser({email, password}).then(({data}) => {
             if(data) {
-                navigate('/chats')
+                socket.emit('new-user');
+                navigate('/chats');
             }
-        })
+        });
     }
 
 
