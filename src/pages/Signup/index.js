@@ -13,7 +13,7 @@ export default function Signup() {
     const [image, setImage] = useState(null);
     const [uploadingImage, setUploadingImage] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
-    const [signupUser] = useSignupUserMutation()
+    const [signupUser, {isLoading, error}] = useSignupUserMutation()
     
     function validateImage(e) {
         const file = e.target.files[0];
@@ -72,6 +72,7 @@ export default function Signup() {
                         </label>
                         <input type="file" id="image-upload" hidden accept="image/png, image/jpeg" onChange={validateImage} />
                     </div>
+                    {error && <p className="alert alert-danger">{error.data}</p>}
                     <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Nome</Form.Label>
                         <Form.Control 
@@ -101,7 +102,7 @@ export default function Signup() {
                         <Form.Check type="checkbox" label="Lembrar-me" />
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        {uploadingImage ? "Cadastando..." : "Cadastrar-se"} 
+                        {uploadingImage || isLoading ? "Cadastando..." : "Cadastrar-se"} 
                     </Button>
                     <div className="py-4">
                         <p>

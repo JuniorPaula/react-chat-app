@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLoginUserMutation } from '../../services/appApi';
 import { appContext } from '../../context/appContext';
@@ -9,7 +9,7 @@ export default function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loginUser] = useLoginUserMutation()
+    const [loginUser, {isLoading, error}] = useLoginUserMutation()
     const { socket } = useContext(appContext)
 
     function handleLogin(e) {
@@ -32,6 +32,7 @@ export default function Login() {
                 </div>
                 <Form style={{ width: "100%", maxWidth: 500}} onSubmit={handleLogin}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
+                        {error && <p className="alert alert-danger">{error.data}</p>}
                         <Form.Label>Email</Form.Label>
                         <Form.Control 
                             required
@@ -56,7 +57,7 @@ export default function Login() {
                         <Form.Check type="checkbox" label="Lembrar-me" />
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Entrar
+                        {isLoading ? <Spinner animation="grow" /> : 'Entrar'}
                     </Button>
                     <div className="py-4">
                         <p>

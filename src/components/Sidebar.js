@@ -15,7 +15,7 @@ export default function Sidebar() {
             return alert('Por favor faça o login')
         }
 
-        socket.emit('join-room', room);
+        socket.emit('join-room', room, currentRooms);
         setCurrentRooms(room);
 
         if (isPublic) {
