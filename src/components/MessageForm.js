@@ -62,7 +62,6 @@ export default function MessageForm() {
                         </div>
                     </>
             )}
-            {!user && <div className="alert alert-danger">Por favor faça seu login</div>}
             {user && messages.map(({ _id: date, messagesBydate }, idx) => (
                 <div key={idx}>
                     <p className="text-center message-date-indicator">{date}</p>

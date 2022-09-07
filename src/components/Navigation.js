@@ -23,26 +23,21 @@ export default function Navigation() {
                 <img src={Logo} style={{ width: 50, height: 50 }} alt="Logo Chat" />
             </Navbar.Brand>
         </LinkContainer>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        
           <Nav className="ms-auto">  
             {user && (
               <NavDropdown title={
                 <>
                   <img src={user.picture} style={{ width: 30, height: 30, marginRight: 10, objectFit: 'cover', borderRadius: '50%'}} alt="" />
-                  {user.name}
+                  <span style={{ color: 'white'}}>{user.name}</span> 
                 </>
               } id="basic-nav-dropdown">
-                <NavDropdown.Item>
-                  <Nav.Link 
-                    variant="danger"
-                    onClick={handleLogout}>Sair</Nav.Link>
-                </NavDropdown.Item>
+                <Nav.Link onClick={handleLogout}>Sair</Nav.Link>
               </NavDropdown>
 
             )} 
           </Nav>
-        </Navbar.Collapse>
+        
       </Container>
     </Navbar>
   )

@@ -65,7 +65,7 @@ export default function Sidebar() {
   
     return (
         <>
-            <h2>Salas disponiveis</h2>
+            <h4 className="mb-3" >Salas disponiveis</h4>
             <ListGroup>
                 {rooms.map((room, idx) => (
                     <ListGroup.Item 
@@ -78,7 +78,7 @@ export default function Sidebar() {
                     </ListGroup.Item>
                 ))}      
             </ListGroup>
-            <h2>Usuários</h2>
+            <h4 className="my-4">Usuários</h4>
             <ListGroup>
                 {members.map((member) => (
                     <ListGroup.Item 

@@ -5,7 +5,7 @@ import Sidebar from '../components/Sidebar'
 
 export default function Chat() {
   return (
-    <Container>
+    <Container className="my-3">
       <Row>
         <Col md={4}>
           <Sidebar />
