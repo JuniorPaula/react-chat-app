@@ -26,6 +26,7 @@ export default function Navigation() {
         
           <Nav className="ms-auto">  
             {user && (
+              <>
               <NavDropdown title={
                 <>
                   <img src={user.picture} style={{ width: 30, height: 30, marginRight: 10, objectFit: 'cover', borderRadius: '50%'}} alt="" />
@@ -34,7 +35,13 @@ export default function Navigation() {
               } id="basic-nav-dropdown">
                 <Nav.Link onClick={handleLogout}>Sair</Nav.Link>
               </NavDropdown>
-
+              <LinkContainer to="/chats">
+                <Navbar.Brand>
+                  <span style={{ color: 'white', fontSize: 16}}>chats</span>
+                </Navbar.Brand>
+              </LinkContainer>
+              </>
+              
             )} 
           </Nav>
         

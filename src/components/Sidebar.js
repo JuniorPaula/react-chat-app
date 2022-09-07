@@ -31,9 +31,9 @@ export default function Sidebar() {
 
     useEffect(() => {
         if (user) {
-            setCurrentRooms('geral');
+            setCurrentRooms('Amarela');
             getrooms();
-            socket.emit('join-room', 'geral');
+            socket.emit('join-room', 'Amarela');
             socket.emit('new-user');
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
