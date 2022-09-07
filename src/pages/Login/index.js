@@ -53,9 +53,6 @@ export default function Login() {
                             value={password} 
                             />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Lembrar-me" />
-                    </Form.Group>
                     <Button variant="primary" type="submit">
                         {isLoading ? <Spinner animation="grow" /> : 'Entrar'}
                     </Button>

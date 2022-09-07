@@ -98,15 +98,12 @@ export default function Signup() {
                             onChange={e => setPassword(e.target.value)}
                             value={password} />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Lembrar-me" />
-                    </Form.Group>
                     <Button variant="primary" type="submit">
                         {uploadingImage || isLoading ? "Cadastando..." : "Cadastrar-se"} 
                     </Button>
                     <div className="py-4">
                         <p>
-                            Já tem conta ? <Link to="/login">Login</Link>
+                            Já tem conta ? <Link to="/">Login</Link>
                         </p>
                     </div>
                 </Form>
